@@ -1,0 +1,39 @@
+{
+  // ===== Required API connection details =====
+  graphqlEndpoint: "https://api.traceable.ai/graphql", // GraphQL endpoint
+  token: "", // Bearer token for authorization
+
+  // ===== General scan metadata =====
+  description: "Daily passive scan for owned APIs", // Optional user-provided description
+
+  // ===== Asset selections =====
+  // Comma-separated list of ownership IDs; one scan suite will be created per owner ID
+  ownerValue: ",",
+
+  // ===== Scan policy to apply =====
+  policyId: "30ce0c1a-3cfe-46dc-8ace-97937d357f9f",
+
+  // ===== Runtime environment for which scan config is created =====
+  trafficEnvironment: "",
+
+  // ===== Hook configuration for authentication or pre-scan setup =====
+  hookConfiguration: "0712511d-7c05-42ff-a4ec-773709222406",
+
+  // ===== Scan schedule configuration =====
+  scheduleJobConfiguration: {
+    // Can be "Daily" or "Weekly" – used to name scan like {OwnerID}_Daily_Passive_Scan
+    name: "Daily",
+    dailySchedule: {
+      // Time in UTC when the scan should run
+      scheduledTime: "20:00:00.000Z"
+    }
+  },
+
+  // ===== Advanced scan execution settings (leave defaults unless overriding) =====
+  advanceConfiguration: {
+    delayDurationBetweenRequests: "PT0S",     // Delay between HTTP requests
+    idleTimeoutDuration: "PT600S",            // Idle timeout duration
+    scanTimeoutDuration: "PT1800S",           // Total scan timeout
+    totalTestExecutionThreads: 20             // Number of threads used for scan
+  }
+}
