@@ -33,27 +33,6 @@ def build_mutation(config: dict, owner_id: str) -> str:
                     type: ATTRIBUTE
                   }}
                 ]
-              }},
-              {{
-                selectionMode: INCLUDE
-                selectedAsset: ENDPOINT
-                endpoint: {{
-                  urlPredicates: [
-                    {{ relationalOperator: MATCHES_REGEX, value: ".+" }}
-                  ]
-                }}
-              }},
-              {{
-                selectionMode: EXCLUDE
-                selectedAsset: ENDPOINT
-                endpoint: {{
-                  urlPredicates: [
-                    {{
-                      relationalOperator: MATCHES_REGEX
-                      value: ".*(logout|health).*"
-                    }}
-                  ]
-                }}
               }}
             ]
             policyId: "{policy_id}"
@@ -74,13 +53,58 @@ def build_mutation(config: dict, owner_id: str) -> str:
           integrationDetails: []
           scanEvaluationCriteriaConfiguration: {{
             scanEvaluationCriteriaDetails: [
-              {{ scanEvaluationCriteriaId: "6ae30550-4f90-4ca3-b993-25d02ed54909" }}
+              {{
+                inlineScanEvaluationCriteriaDetails: {{
+                  expression: {{ allEvaluateTrue: false }}
+                  rules: [
+                    {{
+                      assetScope: {{
+                        assetType: ENDPOINT
+                        assetSelection: {{ selectAllAssets: {{ isEnabled: true }} }}
+                      }}
+                      vulnerabilityScopeAndEvaluation: {{
+                        operator: GREATER_THAN
+                        severity: HIGH
+                        threshold: 0
+                        vulnerabilitySelection: {{
+                          selectAnyVulnerability: {{ isEnabled: true }}
+                        }}
+                        vulnerabilityDurationScope: {{
+                          maximumVulnerabilityDuration: {{
+                            vulnerabilityOpenDuration: "PT604800S"
+                          }}
+                        }}
+                      }}
+                    }},
+                    {{
+                      assetScope: {{
+                        assetType: SERVICE
+                        assetSelection: {{ selectAllAssets: {{ isEnabled: true }} }}
+                      }}
+                      vulnerabilityScopeAndEvaluation: {{
+                        operator: GREATER_THAN
+                        severity: HIGH
+                        threshold: 0
+                        vulnerabilitySelection: {{
+                          selectAnyVulnerability: {{ isEnabled: true }}
+                        }}
+                        vulnerabilityDurationScope: {{
+                          maximumVulnerabilityDuration: {{
+                            vulnerabilityOpenDuration: "PT604800S"
+                          }}
+                        }}
+                      }}
+                    }}
+                  ]
+                }}
+              }}
             ]
           }}
           scheduleJobConfiguration: {{
             status: ENABLED
             name: "{config['scheduleJobConfiguration']['name']}"
             runnerIds: []
+            runnerLabels: []
             dailySchedule: {{ scheduledTime: "{schedule_time}" }}
           }}
         }}
@@ -120,7 +144,6 @@ def run_mutation(endpoint: str, token: str, mutation: str, owner_id: str):
 
     return result
 
-
 def main():
     config = load_config("scan_config.json5")
     endpoint = config["graphqlEndpoint"]
@@ -133,7 +156,6 @@ def main():
         result = run_mutation(endpoint, token, mutation, owner_id)
         if result:
             print(json5.dumps(result, indent=2))
-
 
 if __name__ == "__main__":
     main()
