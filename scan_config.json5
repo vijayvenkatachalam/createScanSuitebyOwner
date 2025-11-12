@@ -1,7 +1,7 @@
 {
   // ===== Required API connection details =====
   graphqlEndpoint: "https://api.traceable.ai/graphql", // GraphQL endpoint
-  token: "Mzg2ZDkxNDktMmMxNy00YWNhLWE1MWEtNDE3MjZlYzNmMGIx", // Bearer token for authorization
+  token: "EnterYourToken", // Bearer token for authorization
 
   // ===== General scan metadata =====
   description: "Daily passive scan for owned APIs", // Optional user-provided description
