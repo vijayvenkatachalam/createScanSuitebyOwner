@@ -35,5 +35,11 @@
     idleTimeoutDuration: "PT600S",            // Idle timeout duration
     scanTimeoutDuration: "PT1800S",           // Total scan timeout
     totalTestExecutionThreads: 20             // Number of threads used for scan
-  }
+  },
+
+  deleteConfig: {
+  ownerValue: "AD00007658,AD00007659",        // "all" or comma-separated owner IDs
+  safeDelete: true,         // true = prompt before delete; false = no prompt
+  dryRun: false             // true = list what WOULD be deleted; no deletions
+}
 }
