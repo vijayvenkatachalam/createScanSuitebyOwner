@@ -1,14 +1,14 @@
 {
   // ===== Required API connection details =====
   graphqlEndpoint: "https://api.traceable.ai/graphql", // GraphQL endpoint
-  token: "", // Bearer token for authorization
+  token: "Mzg2ZDkxNDktMmMxNy00YWNhLWE1MWEtNDE3MjZlYzNmMGIx", // Bearer token for authorization
 
   // ===== General scan metadata =====
   description: "Daily passive scan for owned APIs", // Optional user-provided description
 
   // ===== Asset selections =====
   // Comma-separated list of ownership IDs; one scan suite will be created per owner ID
-  ownerValue: "AD00001234,AD00005678",
+  ownerValue: "AD00007658,AD00007659",
 
   // ===== Scan policy to apply =====
   policyId: "30ce0c1a-3cfe-46dc-8ace-97937d357f9f",
